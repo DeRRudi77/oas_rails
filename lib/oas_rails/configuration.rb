@@ -13,7 +13,9 @@ module OasRails
                   :possible_default_responses,
                   :http_verbs,
                   :use_model_names,
-                  :rapidoc_theme
+                  :rapidoc_theme,
+                  :routes_provider,
+                  :routes_provider_mount_path
 
     attr_reader :servers, :tags, :security_schema, :include_mode, :response_body_of_default
 
@@ -38,6 +40,8 @@ module OasRails
       @use_model_names = false
       @rapidoc_theme = :rails
       @include_mode = :all
+      @routes_provider = Rails.application
+      @routes_provider_mount_path = nil
 
       @possible_default_responses.each do |response|
         method_name = "response_body_of_#{response}="

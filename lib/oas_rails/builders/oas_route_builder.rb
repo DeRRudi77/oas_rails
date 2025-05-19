@@ -52,7 +52,13 @@ module OasRails
       end
 
       def path
-        Extractors::RouteExtractor.clean_route(@rails_route.path.spec.to_s)
+        route_path = if OasRails.config.routes_provider_mount_path.present?
+                       OasRails.config.routes_provider_mount_path + @rails_route.path.spec.to_s
+                     else
+                       @rails_route.path.spec.to_s
+                     end
+
+        Extractors::RouteExtractor.clean_route(route_path)
       end
 
       def source_string
